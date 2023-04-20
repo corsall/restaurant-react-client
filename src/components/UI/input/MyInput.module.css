@@ -1,0 +1,23 @@
+.myInput{
+    width: 100%;
+    padding: 10px 15px;
+    margin: 10px 0;
+    font-size: 14px;
+    opacity: 1;
+    
+    border-collapse: collapse;
+    border: none;
+    font-family: Arial, sans-serif;
+    background-color: transparent;
+    cursor: pointer;
+
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.myInput:focus{
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+

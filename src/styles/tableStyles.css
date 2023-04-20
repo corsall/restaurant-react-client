@@ -1,0 +1,41 @@
+table {
+    margin: 40px auto;
+    width: fit-content;
+    align-items: end;
+    color:white;
+}
+
+tr{
+    padding: 0 20px;
+    background-color: #2e2f3a;
+}
+
+tr:nth-child(2n+1) {
+    /* background-color: #2e2f3a; */
+    background-color: #2b2c34;
+}
+
+td{
+    padding: 10px 50px;
+}
+
+th{
+    text-align: left;
+    padding: 20px 50px;
+    background-color: #2e2f3a;;
+}
+
+.buttons{
+    padding: 0;
+    width: 0;
+    background-color: #393646;
+}
+
+.buttons button{
+    margin: 0;
+    background-color: #393646;
+}
+
+.buttons button:hover{
+    background-color: #2e2f3a;
+}
