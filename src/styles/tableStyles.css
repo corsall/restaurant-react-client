@@ -6,6 +6,7 @@ table {
 }
 
 tr{
+    width: 250px;
     padding: 0 20px;
     background-color: #2e2f3a;
 }
@@ -16,6 +17,7 @@ tr:nth-child(2n+1) {
 }
 
 td{
+    width: 250px;
     padding: 10px 50px;
 }
 

@@ -19,6 +19,28 @@ export default class TableService {
         }
     }
 
+    static async getTableKeys(table) {
+        try {
+            const response = await axios.get(`https://localhost:7197/api/${table}/tablekeys`);
+            return response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    //This returns unique ids for each table that have been used
+    //Needed for MyInputSelector
+    static async getTableIds() {
+        try {
+            const response = await axios.get(`https://localhost:7197/IDs/ids`);
+            return response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
     static async postTableRow(table, newRow) {
         try {
             const response = await axios.post(`https://localhost:7197/api/${table}`, newRow);

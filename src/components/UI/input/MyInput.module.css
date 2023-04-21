@@ -10,6 +10,7 @@
     font-family: Arial, sans-serif;
     background-color: transparent;
     cursor: pointer;
+    border-radius: 6px;
 
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 }

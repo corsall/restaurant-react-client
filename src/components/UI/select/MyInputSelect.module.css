@@ -1,15 +1,19 @@
 .mySlct{
-    width: 50%;
+    font-size: 14px;
+    width: 95%;
+    margin: 5px;
     height: 40px;
     background-color: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     margin-left: 6px;
 }
   
 select option {
+    outline: none;
     background-color: #202123;
     color: #F4EEE0;
-
     font-size: 14px;
     padding: 5px;
 }
