@@ -3,7 +3,7 @@ import cl from "./MyModal.module.css";
 import RegisterForm from "../../AccountForms/RegisterForm";
 import LoginForm from "../../AccountForms/LoginForm";
 
-function MyModal({visible, setVisible}) {
+function MyModal({visible, setVisible, setUserLabel}) {
     const rootClasses = [cl.myModal];
     if (visible) {
         rootClasses.push(cl.active);
@@ -14,7 +14,7 @@ function MyModal({visible, setVisible}) {
     return (
         <div className={rootClasses.join(' ')} onClick={() => {setVisible(false); setIsRegisterForm(false)}}>
             <div className={cl.myModalContent} onClick={(e) => e.stopPropagation()}>  
-                {isRegisterForm ? <RegisterForm/> : <LoginForm setIsRegisterForm={setIsRegisterForm}/>}
+                {isRegisterForm ? <RegisterForm setUserLabel={setUserLabel}/> : <LoginForm setUserLabel={setUserLabel} setIsRegisterForm={setIsRegisterForm}/>}
             </div>
         </div>
     );

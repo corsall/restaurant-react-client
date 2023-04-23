@@ -3,7 +3,7 @@ import MyInput from "../UI/input/MyInput";
 import MyButton from "../UI/button/MyButton";
 import UserService from "../../API/UserService";
 
-function RegisterForm() {
+function RegisterForm({setUserLabel}) {
     const [userName, setUserName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
@@ -18,7 +18,12 @@ function RegisterForm() {
             "email": email,
             "password": password
         }
-        await UserService.register(registerUser);
+        const response = await UserService.register(registerUser);
+        if(response === 200){
+            await UserService.login(registerUser);
+            console.log(JSON.parse(localStorage.getItem("user")).userName);
+            setUserLabel(JSON.parse(localStorage.getItem("user")).userName);
+        }
     }
 
     

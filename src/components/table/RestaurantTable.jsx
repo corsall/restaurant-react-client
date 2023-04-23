@@ -15,7 +15,6 @@ function RestaurantTable({
 
     useMemo(async () => {
         if (isRefreshed === true) return;
-        console.log("fetched Table");
         setTableData(await TableService.getTable(currentTable));
         setIsRefreshed(true);
     }, [isRefreshed, currentTable, setIsRefreshed]);

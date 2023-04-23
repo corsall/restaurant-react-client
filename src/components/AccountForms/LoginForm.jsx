@@ -3,7 +3,7 @@ import MyInput from "../UI/input/MyInput";
 import MyButton from "../UI/button/MyButton";
 import UserService from "../../API/UserService";
 
-function LoginForm({setIsRegisterForm}) {
+function LoginForm({setIsRegisterForm, setUserLabel}) {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
@@ -14,7 +14,11 @@ function LoginForm({setIsRegisterForm}) {
             "userName": userName,
             "password": password
         }
-        await UserService.login(loginUser);
+        const response = await UserService.login(loginUser);
+        if(response === 200){
+            console.log(JSON.parse(localStorage.getItem("user")).userName);
+            setUserLabel(JSON.parse(localStorage.getItem("user")).userName);
+        }
     }
 
 

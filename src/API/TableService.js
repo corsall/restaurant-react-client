@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHeader from "./authHeader";
 
 export default class TableService {
     static async getTable(table) {
@@ -53,7 +54,7 @@ export default class TableService {
 
     static async deleteTableRow(table, rowToRemove) {
         try {
-            await axios.delete(`https://localhost:7197/api/${table}/${Object.values(rowToRemove)[0]}`)
+            await axios.delete(`https://localhost:7197/api/${table}/${Object.values(rowToRemove)[0]}`, {headers: authHeader()})
         } catch (error) {
             console.log(error);
         }
