@@ -1,0 +1,61 @@
+.myModal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: none;
+    background: rgba(0, 0, 0,0.5);
+}
+
+.myModalContent{
+    padding: 25px;
+    background-color: white;
+    border-radius: 16px;
+    width: 750px;
+    color: black;
+}
+
+.myModal.active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.myModalContent button{
+    color: black;
+    border: 2px solid rgba(1, 1, 1, 0.5);
+}
+
+.myModalContent button:hover{
+    background-color: rgba(1, 1, 1, 0.1);
+}
+
+.myModalContent label{
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+.myModalContent input{
+    border-bottom: 2px solid rgba(1, 1, 1, 0.5);
+    color: black;
+}
+
+.myModalContent input:focus{
+    outline: none;
+    border-bottom: 2px solid rgba(1, 1, 1, 0.5);
+}
+
+.myModalContent input:hover{
+    background-color: rgba(1, 1, 1, 0.1);
+}
+
+.myModalContent span{
+    color: #5094ed;
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+.myModalContent span:hover{
+    font-weight: bold;
+}

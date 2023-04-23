@@ -3,7 +3,6 @@
     margin: 0;
     padding: 0;
     font-family: Helvetica;
-    color: #F4EEE0;
 }
 
 body{
@@ -42,6 +41,7 @@ body{
 
 button{
     margin: 5px;
+    color: #F4EEE0;
 }
 
 button:hover{
