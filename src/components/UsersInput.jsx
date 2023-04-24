@@ -5,7 +5,7 @@ import TableService from "../API/TableService";
 import MyInputSelect from "./UI/select/MyInputSelect";
 import { toast } from "react-hot-toast";
 
-//TODO:
+
 function UsersInput({ currentTable, setIsRefreshed, dataToEdit, isRefreshed }) {
     const [rowsInput, setRowsInput] = useState([]);
     const [tableHeader, setTableHeader] = useState({});
@@ -79,7 +79,6 @@ function UsersInput({ currentTable, setIsRefreshed, dataToEdit, isRefreshed }) {
                             options={tableIds[headerKeys[index]]}
                             defaultValue={headers[index]}
                             onChange={(e) => {
-                                console.log(e.target.value);
                                 setRowsInput(() => {
                                     let copy = [...rowsInput];
                                     copy[index] = e.target.value;

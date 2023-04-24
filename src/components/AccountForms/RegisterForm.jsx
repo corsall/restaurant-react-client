@@ -13,7 +13,6 @@ function RegisterForm({setUserLabel}) {
 
     async function  register(e){
         e.preventDefault();
-        console.log(userName, phoneNumber, email, password);
         const registerUser = {
             "userName": userName,
             "phoneNumber": phoneNumber,
@@ -33,7 +32,6 @@ function RegisterForm({setUserLabel}) {
                 setErrors(Object.values(errorMessage));
             }
             else{
-                console.log(Object.values(response.response.data)[2]);
                 setErrors(Object.values(response.response.data));
             }
         }

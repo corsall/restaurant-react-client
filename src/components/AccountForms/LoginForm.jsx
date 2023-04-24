@@ -14,7 +14,6 @@ function LoginForm({setIsRegisterForm, setUserLabel}) {
             "password": password
         }
         const response = await UserService.login(loginUser);
-        console.log(response);
         if(response === 200){
             setUserLabel(JSON.parse(localStorage.getItem("user")).userName);
         }
