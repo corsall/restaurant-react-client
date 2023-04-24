@@ -1,43 +1,57 @@
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export default class UserService {
     //TODO: fix error handling logic
     static async register(registerBody) {
+        // try {
+        //     const response = await axios.post(`https://localhost:7197/api/Account/register`, registerBody).catch(error => {console.log(error)});
+        //     console.log("Response: " + response);
+        //     if (response.status === 200) {
+        //         localStorage.setItem("user", JSON.stringify(response.data));
+        //         console.log("User registered successfully");
+        //     } else {
+        //         console.log("User registration failed");
+        //     }
+        //     return response.status;
+        // } catch (error) {
+        //     console.log(error);
+        // }
+
         try {
-            const response = await axios.post(`https://localhost:7197/api/Account/register`, registerBody).catch(error => {console.log(error)});
-            console.log("Response: " + response);
-            if (response.status === 200) {
-                localStorage.setItem("user", JSON.stringify(response.data));
-                console.log("User registered successfully");
-            } else {
-                console.log("User registration failed");
-            }
-            return response.status;
+            const response = await axios.post(`https://localhost:7197/api/Account/register`, registerBody);
+            localStorage.setItem("user", JSON.stringify(response.data));
+            return response;
         } catch (error) {
-            console.log(error);
+            return error;
         }
     }
 
     static async login(loginBody) {
         try {
-            const response = await axios.post(`https://localhost:7197/api/Account/login`, loginBody);
+            const response = await axios.post(
+                `https://localhost:7197/api/Account/login`,
+                loginBody
+            );
             if (response.status === 200) {
                 localStorage.setItem("user", JSON.stringify(response.data));
-                console.log("User has successfully logged in");
+                toast.success("Logged in successfully");
             } else {
-                console.log("User login failed");
+                toast.error("Login failed");
             }
+            console.log(response.status);
             return response.status;
         } catch (error) {
             console.log(error);
         }
     }
 
-    static logout(){
+    static logout() {
         localStorage.removeItem("user");
-    };
+        toast.success("Logged out successfully");
+    }
 
-    static getCurrentUser(){
+    static getCurrentUser() {
         return localStorage.getItem("user");
-    };
+    }
 }

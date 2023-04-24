@@ -9,14 +9,13 @@ function LoginForm({setIsRegisterForm, setUserLabel}) {
 
     async function  login(e){
         e.preventDefault();
-        console.log(userName, password);
         const loginUser = {
             "userName": userName,
             "password": password
         }
         const response = await UserService.login(loginUser);
+        console.log(response);
         if(response === 200){
-            console.log(JSON.parse(localStorage.getItem("user")).userName);
             setUserLabel(JSON.parse(localStorage.getItem("user")).userName);
         }
     }
@@ -28,7 +27,7 @@ function LoginForm({setIsRegisterForm, setUserLabel}) {
             <MyInput type="text" value={userName} onChange={e => setUserName(e.target.value)} placeholder="UserName"/>
             <MyInput type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password"/>
             <MyButton onClick={login}>Login</MyButton>
-            <span onClick={() => setIsRegisterForm(true)}>Create account</span>
+            <span className="registerBtn" onClick={() => setIsRegisterForm(true)}>Create account</span>
         </>
     );
 }

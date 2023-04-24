@@ -3,6 +3,7 @@ import MyButton from "./UI/button/MyButton";
 import MyInput from "./UI/input/MyInput";
 import TableService from "../API/TableService";
 import MyInputSelect from "./UI/select/MyInputSelect";
+import { toast } from "react-hot-toast";
 
 //TODO:
 function UsersInput({ currentTable, setIsRefreshed, dataToEdit, isRefreshed }) {
@@ -48,9 +49,15 @@ function UsersInput({ currentTable, setIsRefreshed, dataToEdit, isRefreshed }) {
             return;
         }
 
+        if( await TableService.getRowById(currentTable, newRow[headerKeys[0]]) !== undefined){
+            toast.error("Row with this id already exists");
+            return;
+        }
+
         await TableService.postTableRow(currentTable, newRow);
         setRowsInput(Array(rowsInput.length).fill(""));
         setIsRefreshed(false);
+        toast.success("Row added successfully");
     }
 
     function clearForm(e) {

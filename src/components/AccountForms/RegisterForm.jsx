@@ -8,6 +8,8 @@ function RegisterForm({setUserLabel}) {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState('');
+    const [state, setState] = useState({});
 
     async function  register(e){
         e.preventDefault();
@@ -19,10 +21,21 @@ function RegisterForm({setUserLabel}) {
             "password": password
         }
         const response = await UserService.register(registerUser);
-        if(response === 200){
+        if(response.status === 200){
+            setErrors([]);
             await UserService.login(registerUser);
-            console.log(JSON.parse(localStorage.getItem("user")).userName);
             setUserLabel(JSON.parse(localStorage.getItem("user")).userName);
+            setErrors("Success. User logged in");
+            setState({color: "green"});
+        } else {
+            if(Object.values(response.response.data)[2] === 400){
+                const errorMessage = Object.values(response.response.data)[4];
+                setErrors(Object.values(errorMessage));
+            }
+            else{
+                console.log(Object.values(response.response.data)[2]);
+                setErrors(Object.values(response.response.data));
+            }
         }
     }
 
@@ -34,7 +47,10 @@ function RegisterForm({setUserLabel}) {
             <MyInput type="tel" value={phoneNumber} onChange={e => setPhoneNumber(e.target.value)} placeholder="PhoneNumber"/>
             <MyInput type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email"/>
             <MyInput type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password"/>
-            <MyButton onClick={register}>Register</MyButton>
+            <div className="registerStatus">
+                <MyButton onClick={register}>Register</MyButton>
+                <span style={state} className="registerErrors">{errors}</span>
+            </div>
         </>
 
     );

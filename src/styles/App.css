@@ -33,6 +33,10 @@ body{
     height: 50px;
 }
 
+select{
+    color: #ffffff;
+}
+
 .main{
     overflow:auto;
     flex-basis: 80%;
@@ -66,4 +70,24 @@ input:hover{
 .navBar p{
     opacity: 0.5;
     margin: auto 20px;
+}
+
+.registerBtn{
+    color: #5094ed;
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+.registerBtn:hover{
+    font-weight: bold;
+}
+
+.registerErrors{
+    color: red;
+    font-size: 0.8rem;
+    overflow: hidden;
+}
+
+.registerStatus{
+    display: flex; 
 }

@@ -20,7 +20,7 @@ function SearchSection({setIsRefreshed, setCurrentTable, searchQuery, setSearchQ
             <MyInput
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search..."
+                placeholder="🔎Search..."
             />
         </>
     );

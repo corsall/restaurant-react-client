@@ -5,6 +5,7 @@ import "./styles/tableStyles.css";
 import UsersInput from "./components/UsersInput";
 import SearchSection from "./components/SearchSection";
 import NavBar from "./components/NavBar";
+import { Toaster } from "react-hot-toast";
 
 function App() {
     const [currentTable, setCurrentTable] = useState("Clients");
@@ -14,6 +15,7 @@ function App() {
 
     return (
         <>
+            <Toaster position="bottom-left" reverseOrder={false} />
             <div className="sideBar">
                 <SearchSection
                     setIsRefreshed={setIsRefreshed}
@@ -31,7 +33,7 @@ function App() {
                 />
             </div>
             <div className="main">
-                <NavBar/>
+                <NavBar />
                 <RestaurantsTable
                     currentTable={currentTable}
                     isRefreshed={isRefreshed}

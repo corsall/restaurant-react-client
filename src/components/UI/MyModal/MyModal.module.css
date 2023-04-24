@@ -50,12 +50,3 @@
     background-color: rgba(1, 1, 1, 0.1);
 }
 
-.myModalContent span{
-    color: #5094ed;
-    margin: 0 20px;
-    cursor: pointer;
-}
-
-.myModalContent span:hover{
-    font-weight: bold;
-}

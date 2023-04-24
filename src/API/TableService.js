@@ -1,10 +1,20 @@
 import axios from "axios";
 import authHeader from "./authHeader";
+import toast from 'react-hot-toast';
 
 export default class TableService {
     static async getTable(table) {
         try {
             const response = await axios.get(`https://localhost:7197/api/${table}`);
+            return response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    static async getRowById(table,id) {
+        try {
+            const response = await axios.get(`https://localhost:7197/api/${table}/${id}`);
             return response.data;
         } catch (error) {
             console.log(error);
@@ -57,14 +67,16 @@ export default class TableService {
             await axios.delete(`https://localhost:7197/api/${table}/${Object.values(rowToRemove)[0]}`, {headers: authHeader()})
         } catch (error) {
             console.log(error);
+            toast.error("only admin can delete");
         }
     }
 
     static async updateTableRow(table, rowToUpdate) {
         try {
-            await axios.put(`https://localhost:7197/api/${table}/${Object.values(rowToUpdate)[0]}`, rowToUpdate)
+            await axios.put(`https://localhost:7197/api/${table}/${Object.values(rowToUpdate)[0]}`, rowToUpdate,{headers: authHeader()})
         } catch (error) {
             console.log(error);
+            toast.error("only registered users can edit"); 
         }
     }
 }
