@@ -13,7 +13,7 @@ React client was built to consume ASP.NET CORE Web API with Axios.
 
 ![restaurant_website](https://github.com/corsall/restaurant-react-client/blob/main/login-example.png)
 
-#### Demo: https://corsall.github.io/restaurant-react-client/
+#### Demo For REACT CLIENT: https://corsall.github.io/restaurant-react-client/
 
 Feel free to test the website, but be careful 🚨 only admin can delete everything you created.🚨
 
@@ -22,7 +22,7 @@ This project was part of another project where I tested my api skills. Over time
 It is worth noting that the client relies heavily on the API and without a server there will be no data that can be displayed, so the client will be an empty window
 If you are interested, here is the repository with the api on which this client works.
 what a surprise api also has a mini client so be sure to check it out❤️
-#### Demo: https://codersgyan.github.io/Responsive-restaurant-website/
+#### Demo For ASP.NET CORE API: https://github.com/corsall/restaurant-manager-api/
 
 ## Project setup
 
