@@ -1,6 +1,6 @@
 {
-  "homepage": "https://corsall.github.io/react-client",
-  "name": "learn",
+  "homepage": "https://corsall.github.io/restaurant-react-client",
+  "name": "restaurant-react-client",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
