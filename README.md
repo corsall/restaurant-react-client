@@ -22,7 +22,7 @@ This project was part of another project where I tested my api skills. Over time
 It is worth noting that the client relies heavily on the API and without a server there will be no data that can be displayed, so the client will be an empty window
 If you are interested, here is the repository with the api on which this client works.
 what a surprise api also has a mini client so be sure to check it out❤️
-#### Demo For ASP.NET CORE API: https://github.com/corsall/restaurant-manager-api/
+#### ASP.NET CORE API: https://github.com/corsall/restaurant-manager-api/
 
 ## Project setup
 
