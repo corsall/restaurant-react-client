@@ -1,12 +1,8 @@
-import React, { useMemo, useState } from "react";
-import TableService from "../../API/TableService";
+import React, { useContext, useMemo, useState } from "react";
+import { TableContext } from "../../context/TableGlobal";
 
-function TableHead({ currentTable }) {
-    const [tableHeader, setTableHeader] = useState({});
-
-    useMemo(async () => {
-        setTableHeader(await TableService.getTableHeader(currentTable));
-    }, [currentTable]);
+function TableHead() {
+    const { tableHeader } = useContext(TableContext);
 
     return (
         <thead>

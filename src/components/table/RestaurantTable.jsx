@@ -1,44 +1,22 @@
-import React, {useMemo, useState } from "react";
+import React, { useContext, useEffect} from "react";
 import TableBody from "./TableBody";
 import TableHead from "./TableHead";
-import TableService from "../../API/TableService";
+import { TableContext } from "../../context/TableGlobal";
 
-function RestaurantTable({
-    currentTable,
-    isRefreshed,
-    setIsRefreshed,
-    setDataToEdit,
-    searchQuery,
-}) {
-    const [tableData, setTableData] = useState([]);
-    const [filteredTableData, setFilteredTableData] = useState([]);
+function RestaurantTable({ searchQuery, setDataToEdit }) {
 
-    useMemo(async () => {
-        if (isRefreshed === true) return;
-        setTableData(await TableService.getTable(currentTable));
-        setIsRefreshed(true);
-    }, [isRefreshed, currentTable, setIsRefreshed]);
+    const {getTable, getTableHeader } = useContext(TableContext);
 
-    useMemo(() => {
-        const regex = RegExp(searchQuery);
-        let filteredData = tableData.filter(
-            (table) =>
-                !Object.values(table)
-                    .map((value) => (value === null ? "" : value.toString()))
-                    .reduce((a, c) => a * !c.match(regex), true)
-        );
-        setFilteredTableData(filteredData);
-    }, [searchQuery, tableData]);
+    useEffect(() => {
+        getTable();
+        getTableHeader();
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <table>
-            <TableHead currentTable={currentTable}/>
-            <TableBody
-                currentTable={currentTable}
-                tableData={(filteredTableData.length ===0)? tableData: filteredTableData}
-                setIsRefreshed={setIsRefreshed}
-                setDataToEdit={setDataToEdit}
-            />
+            <TableHead/>
+            <TableBody searchQuery={searchQuery} setDataToEdit={setDataToEdit}/>
         </table>
     );
 }

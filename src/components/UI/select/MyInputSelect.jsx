@@ -9,7 +9,7 @@ function MyInputSelect({options, defaultValue, ...props}) {
             className={classes.mySlct}
             {...props}
         >
-            <option>{defaultValue}</option>
+            <option disabled>{defaultValue}</option>
             {options.map(option =>
                 <option value={option} key={option}>{option}</option>
             )}

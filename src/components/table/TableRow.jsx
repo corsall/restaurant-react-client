@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import MyButton from "../UI/button/MyButton";
-import TableService from "../../API/TableService";
+import { TableContext } from "../../context/TableGlobal";;
 
-function TableRow({ row, setIsRefreshed, currentTable, setDataToEdit }) {
-    async function remove(row) {
-        await TableService.deleteTableRow(currentTable, row);
-        setIsRefreshed(false);
-    }
+function TableRow({ row, setDataToEdit }) {
+    const { deleteTableRow } = useContext(TableContext);
+
 
     return (
         <tr>
@@ -19,7 +17,9 @@ function TableRow({ row, setIsRefreshed, currentTable, setDataToEdit }) {
             })}
 
             <td className="buttons">
-                <MyButton onClick={() => remove(row)}>Delete</MyButton>
+                <MyButton onClick={() =>{
+                    deleteTableRow(Object.values(row)[0])
+                }}>Delete</MyButton>
             </td>
             <td className="buttons">
                 <MyButton onClick={() => setDataToEdit(Object.values(row))}>

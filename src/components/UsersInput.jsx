@@ -1,35 +1,12 @@
-import { React, useMemo, useState } from "react";
+import { React, useContext} from "react";
 import MyButton from "./UI/button/MyButton";
 import MyInput from "./UI/input/MyInput";
-import TableService from "../API/TableService";
 import MyInputSelect from "./UI/select/MyInputSelect";
-import { toast } from "react-hot-toast";
+import { TableContext } from "../context/TableGlobal";
 
+function UsersInput({ inputData, setRowsInput, setIsEditMode }) {
 
-function UsersInput({ currentTable, setIsRefreshed, dataToEdit, isRefreshed }) {
-    const [rowsInput, setRowsInput] = useState([]);
-    const [tableHeader, setTableHeader] = useState({});
-    const [isEditMode, setIsEditMode] = useState(false);
-    const [tableKeys, setTableKeys] = useState([]);
-    const [tableIds, setTableIds] = useState({});
-
-    useMemo(async () => {
-        if (isRefreshed === false) {
-            setTableIds(await TableService.getTableIds());
-        }
-    }, [isRefreshed]);
-
-    useMemo(() => {
-        setRowsInput(dataToEdit);
-        setIsEditMode(true);
-    }, [dataToEdit]);
-
-    useMemo(async () => {
-        setTableHeader(await TableService.getTableHeader(currentTable));
-        setRowsInput(Array([]).fill(""));
-        setIsEditMode(false);
-        setTableKeys(await TableService.getTableKeys(currentTable));
-    }, [currentTable]);
+    const { tableHeader, updateTableRow, addTableRow } = useContext(TableContext);
 
     const headers = Object.keys(tableHeader);
     const headerKeys = Object.values(tableHeader);
@@ -37,50 +14,41 @@ function UsersInput({ currentTable, setIsRefreshed, dataToEdit, isRefreshed }) {
     async function addNewRow(e) {
         e.preventDefault();
         const newRow = {};
-        for (let i = 0; i < rowsInput.length; i++) {
-            newRow[headerKeys[i]] = rowsInput[i];
+        for (let i = 0; i < inputData.rowsInput.length; i++) {
+            newRow[headerKeys[i]] = inputData.rowsInput[i];
         }
-
-        if (isEditMode) {
-            await TableService.updateTableRow(currentTable, newRow);
-            setRowsInput(Array(rowsInput.length).fill(""));
+        
+        if (inputData.isEditMode) {
+            updateTableRow(newRow);
             setIsEditMode(false);
-            setIsRefreshed(false);
             return;
         }
 
-        if( await TableService.getRowById(currentTable, newRow[headerKeys[0]]) !== undefined){
-            toast.error("Row with this id already exists");
-            return;
-        }
-
-        await TableService.postTableRow(currentTable, newRow);
-        setRowsInput(Array(rowsInput.length).fill(""));
-        setIsRefreshed(false);
-        toast.success("Row added successfully");
+        addTableRow(newRow);
     }
 
     function clearForm(e) {
         e.preventDefault();
-        //clear inputs
         setIsEditMode(false);
-        setIsRefreshed(false);
-        setRowsInput(Array(rowsInput.length).fill(""));
+        setRowsInput(Array(inputData.rowsInput.length).fill(""));
     }
 
     return (
         <form>
             {headers.map((key, index) => {
-                if (tableKeys.includes(headerKeys[index]) && (index !== 0)) {
+                if (
+                    inputData.tableKeys.includes(headerKeys[index]) &&
+                    index !== 0
+                ) {
                     return (
                         <MyInputSelect
                             key={key}
-                            value = {rowsInput[index] || headers[index]}
-                            options={tableIds[headerKeys[index]]}
+                            value={inputData.rowsInput[index] || headers[index]}
+                            options={inputData.tableIds[headerKeys[index]]}
                             defaultValue={headers[index]}
                             onChange={(e) => {
                                 setRowsInput(() => {
-                                    let copy = [...rowsInput];
+                                    let copy = [...inputData.rowsInput];
                                     copy[index] = e.target.value;
                                     return copy;
                                 });
@@ -91,17 +59,17 @@ function UsersInput({ currentTable, setIsRefreshed, dataToEdit, isRefreshed }) {
                     return (
                         <MyInput
                             key={key}
-                            value={rowsInput[index] || ""}
+                            value={inputData.rowsInput[index] || ""}
                             onChange={(e) => {
                                 setRowsInput(() => {
-                                    let copy = [...rowsInput];
+                                    let copy = [...inputData.rowsInput];
                                     copy[index] = e.target.value;
                                     return copy;
                                 });
                             }}
                             type="text"
                             placeholder={key}
-                            disabled={isEditMode && index === 0 ? true : false}
+                            disabled= { inputData.isEditMode && index === 0 ? true : false }
                         />
                     );
                 }

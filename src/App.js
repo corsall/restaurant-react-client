@@ -7,16 +7,16 @@ import SearchSection from "./components/SearchSection";
 import NavBar from "./components/NavBar";
 import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
+import { TableProvider } from "./context/TableGlobal";
+import useTableData from "./hooks/useUserInput";
 
 function App() {
-    const [currentTable, setCurrentTable] = useState("Clients");
     const [searchQuery, setSearchQuery] = useState("");
-    const [dataToEdit, setDataToEdit] = useState([]);
-    const [isRefreshed, setIsRefreshed] = useState(false);
 
-    //dummy ping to make sure the server is up
-    //Client wont work if the server is down 
-    //because it needs to fetch alot of data from the server to work properly
+    //custom hook that handles the user input
+    const { refreshUserInput, inputData, setDataToEdit, setRowsInput, setIsEditMode} = useTableData();
+
+    //waking up the server, may take a while:(
     useEffect(() => {
         async function fetchData() {
             await axios.get("https://restaurants-api-corsall.azurewebsites.net/api/Clients");
@@ -29,35 +29,22 @@ function App() {
     }, []);
 
     return (
-        <>
+        <TableProvider>
             <Toaster position="bottom-left" reverseOrder={false} />
             <div className="sideBar">
                 <SearchSection
-                    setIsRefreshed={setIsRefreshed}
-                    setCurrentTable={setCurrentTable}
+                    refreshUserInput={refreshUserInput}
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
                 />
                 <hr style={{ margin: "15px 0" }} />
-                <UsersInput
-                    isRefreshed={isRefreshed}
-                    currentTable={currentTable}
-                    setIsRefreshed={setIsRefreshed}
-                    dataToEdit={dataToEdit}
-                    setDataToEdit={setDataToEdit}
-                />
+                <UsersInput inputData={inputData} setRowsInput={setRowsInput} setIsEditMode={setIsEditMode} />
             </div>
             <div className="main">
                 <NavBar />
-                <RestaurantsTable
-                    currentTable={currentTable}
-                    isRefreshed={isRefreshed}
-                    setIsRefreshed={setIsRefreshed}
-                    setDataToEdit={setDataToEdit}
-                    searchQuery={searchQuery}
-                />
+                <RestaurantsTable searchQuery={searchQuery} setDataToEdit={setDataToEdit}/>
             </div>
-        </>
+        </TableProvider>
     );
 }
 

@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 export default class TableService {
 
     static url = "https://restaurants-api-corsall.azurewebsites.net/api/";
+    //static url = "https://localhost:7197/api/";
 
     static async getTable(table) {
         try {
@@ -56,16 +57,17 @@ export default class TableService {
     static async postTableRow(table, newRow) {
         try {
             const response = await axios.post(`${this.url}${table}`, newRow);
-            
+            toast.success("Row added successfully");
             return response.data;
         } catch (error) {
-            console.log(error);
+            toast.error("row with this id already exists");
         }
     }
 
-    static async deleteTableRow(table, rowToRemove) {
+    static async deleteTableRow(table, id) {
         try {
-            await axios.delete(`${this.url}${table}/${Object.values(rowToRemove)[0]}`, {headers: authHeader()})
+            const response = await axios.delete(`${this.url}${table}/${id}`, {headers: authHeader()})
+            return response.data;
         } catch (error) {
             toast.error("only admin can delete");
         }
@@ -73,7 +75,8 @@ export default class TableService {
 
     static async updateTableRow(table, rowToUpdate) {
         try {
-            await axios.put(`${this.url}${table}/${Object.values(rowToUpdate)[0]}`, rowToUpdate,{headers: authHeader()})
+            const response = await axios.put(`${this.url}${table}/${Object.values(rowToUpdate)[0]}`, rowToUpdate,{headers: authHeader()})
+            return response.data;
         } catch (error) {
             toast.error("only registered users can edit"); 
         }
