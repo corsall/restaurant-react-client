@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 
 export default class UserService {
 
-    static url = "https://restaurants-api-corsall.azurewebsites.net/api/";
+    static url = "https://restaurant-api.corsall.win/api/";
     //static url = "https://localhost:7197/api/";
 
     static async register(registerBody) {
